@@ -4455,8 +4455,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _allVirtualCameras:
   - {fileID: 1491319343}
-  _fallYPanTime: 0.05
-  _fallSpeedYDampingChangeThreshold: -10
+  _fallYPanTime: 0.1
+  _fallSpeedYDampingChangeThreshold: -15
 --- !u!1 &1792759114
 GameObject:
   m_ObjectHideFlags: 0
