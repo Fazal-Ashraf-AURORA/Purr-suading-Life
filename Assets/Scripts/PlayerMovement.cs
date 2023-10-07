@@ -22,10 +22,10 @@ public class PlayerMovement : MonoBehaviour {
     private float dashingCooldown = 1f;
     private float dashDirection;
 
-    private bool isWallsliding;
+    [SerializeField] private bool isWallsliding;
     private float wallSlidingSpeed = 2f;
 
-    private bool isWallJumping;
+    [SerializeField] private bool isWallJumping;
     private float wallJumpingDirection;
     //private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
