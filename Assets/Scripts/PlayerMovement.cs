@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     [Header("Camera Tracking")]
     [SerializeField] private GameObject _cameraFollowGO;
 
-    //public Animator animator;
+    public Animator animator;
     private float horizontal;
     [SerializeField]private float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
@@ -23,11 +23,10 @@ public class PlayerMovement : MonoBehaviour {
     private float dashDirection;
 
     [SerializeField] private bool isWallsliding;
-    private float wallSlidingSpeed = 2f;
+    private float wallSlidingSpeed = 1.3f;
 
     [SerializeField] private bool isWallJumping;
     private float wallJumpingDirection;
-    //private float wallJumpingTime = 0.2f;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
     private Vector2 wallJumpingPower = new Vector2(8f, 16f);
@@ -69,9 +68,10 @@ public class PlayerMovement : MonoBehaviour {
         horizontal = Input.GetAxisRaw("Horizontal");
 
 
-        //animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         if (IsGrounded()) {
+            animator.SetBool("isJumping", false);
             coyoteTimeCounter = coyoteTime;
         } else {
             coyoteTimeCounter -= Time.deltaTime;
@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f && !isJumping) {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            animator.SetBool("isJumping", true);
 
             jumpBufferCounter = 0f;
 
@@ -97,7 +98,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f) {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-
+            animator.SetBool("isJumping", true);
             coyoteTimeCounter = 0f;
         }
 
@@ -105,25 +106,9 @@ public class PlayerMovement : MonoBehaviour {
         WallJump();
 
         if(!isWallJumping) {
-       //// Flip();
        TurnCheck();
 
         }
-        
-        //Debug.Log(transform.rotation.y);
-
-        ////if we are falling past a certain speed threshold
-        //if(rb.velocity.y < _fallSpeedYDampingChangeThreshold && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling) {
-        //    CameraManager.instance.LerpYDamping(true);
-        //}
-
-        ////if we are standing or moving up
-        //if(rb.velocity.y >= 0f && !CameraManager.instance.IsLerpingYDamping && !CameraManager.instance.LerpedFromPlayerFalling) {
-        //    //reset so it can be called again
-        //    CameraManager.instance.LerpedFromPlayerFalling = false;
-
-        //    CameraManager.instance.LerpYDamping(false);
-        //}
 
         // Check if the player is falling and notify CameraManager to change YDamping
         if (rb.velocity.y < _fallSpeedYDampingChangeThreshold && !isFalling) {
@@ -160,42 +145,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void WallSlide() {
-        if(IsWalled() && !IsGrounded() && horizontal != 0f) {
+        if(IsWalled() && !IsGrounded() /*&& horizontal != 0f*/) {
             isWallsliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         } else {
             isWallsliding = false;
         }
     }
-
-    //private void WallJump() {
-    //    if (isWallsliding) {
-    //        isWallJumping = false;
-    //        wallJumpingDirection = -transform.rota;
-    //        wallJumpingCounter = wallJumpingTime;
-
-    //        CancelInvoke(nameof(StopWallJumping));
-    //    } else {
-    //        wallJumpingCounter -= Time.deltaTime;
-    //    }
-
-    //    if(Input.GetButtonDown("Jump") && wallJumpingCounter > 0f) { 
-    //        isWallJumping = true;
-    //        rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
-    //        wallJumpingCounter = 0f;
-
-    //        //if(transform.localScale.x != wallJumpingDirection) {
-    //        //    isFacingRight = !isFacingRight;
-    //        //    Vector3 localScale = transform.localScale;
-    //        //    localScale.x *= -1f;
-    //        //    transform.localScale = localScale;
-    //        //}
-
-
-
-    //        Invoke(nameof(StopWallJumping), wallJumpingDuration);
-    //    }
-    //}
 
     // When the player starts falling, call this function to set Y damping to 0.25f
     void StartFalling() {
@@ -230,20 +186,6 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-
-
-    private void StopWallJumping() {
-        isWallJumping = false;
-    }
-
-    //private void Flip() {
-    //    if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f) {
-    //        Vector3 localScale = transform.localScale;
-    //        isFacingRight = !isFacingRight;
-    //        localScale.x *= -1f;
-    //        transform.localScale = localScale;
-    //    }
-    //}
 
     private IEnumerator JumpCooldown() {
         isJumping = true;

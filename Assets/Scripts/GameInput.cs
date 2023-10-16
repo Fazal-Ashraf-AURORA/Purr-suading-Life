@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    #region Input Movement through analog stick
+
+    float horizontalGameInput;
+    public void MovementGameInput(InputAction.CallbackContext context) {
+        horizontalGameInput = context.ReadValue<Vector2>().x;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion
 }
