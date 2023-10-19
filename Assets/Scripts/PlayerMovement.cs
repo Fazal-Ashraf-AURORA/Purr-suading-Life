@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool canDash = true;
     private bool isDashing;
     [SerializeField] private float dashingPower = 24f;
-    private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
+    private float dashingTime = 0.4f;
+    private float dashingCooldown = .7f;
     private float dashDirection;
 
     [SerializeField] private bool isWallsliding;
@@ -147,9 +147,11 @@ public class PlayerMovement : MonoBehaviour {
     private void WallSlide() {
         if(IsWalled() && !IsGrounded() /*&& horizontal != 0f*/) {
             isWallsliding = true;
+            animator.SetBool("isWallSliding", true);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
         } else {
             isWallsliding = false;
+            animator.SetBool("isWallSliding", false);
         }
     }
 
@@ -197,6 +199,8 @@ public class PlayerMovement : MonoBehaviour {
 
         canDash = false;
         isDashing = true;
+        animator.SetBool("isDashing", true);
+        
 
         float originalGravity = rb.gravityScale;
         rb.gravityScale = 0;
@@ -210,6 +214,7 @@ public class PlayerMovement : MonoBehaviour {
         
         rb.gravityScale = originalGravity;
         isDashing = false;
+        animator.SetBool("isDashing", false);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
