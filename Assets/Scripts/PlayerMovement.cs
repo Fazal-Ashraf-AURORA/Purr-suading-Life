@@ -19,17 +19,17 @@ public class PlayerMovement : MonoBehaviour {
     private bool isDashing;
     [SerializeField] private float dashingPower = 24f;
     private float dashingTime = 0.4f;
-    private float dashingCooldown = .7f;
+    private float dashingCooldown = 1f;
     private float dashDirection;
 
     [SerializeField] private bool isWallsliding;
-    private float wallSlidingSpeed = 1.3f;
+    [SerializeField] private float wallSlidingSpeed = 4f;
 
     [SerializeField] private bool isWallJumping;
     private float wallJumpingDirection;
     private float wallJumpingCounter;
     private float wallJumpingDuration = 0.4f;
-    private Vector2 wallJumpingPower = new Vector2(8f, 16f);
+    private Vector2 wallJumpingPower = new Vector2(10f, 20f);
 
     private CameraFollowObject _cameraFollowObject;
     private float _fallSpeedYDampingChangeThreshold;
