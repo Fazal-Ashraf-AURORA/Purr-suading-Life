@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void WallSlide() {
-        if(IsWalled() && !IsGrounded() /*&& horizontal != 0f*/) {
+        if(IsWalled() && !IsGrounded() /*&& horizontalMovementInput != 0f*/) {
             isWallsliding = true;
             animator.SetBool("isWallSliding", true);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
