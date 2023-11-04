@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Ground
+  - Spikes
+  - Arrows
   layers:
   - Default
   - TransparentFX
@@ -26,7 +29,7 @@ TagManager:
   - EnemyWeapon
   - BossWeakPoint
   - Bullet
-  - 
+  - Spikes
   - 
   - 
   - 

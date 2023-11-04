@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 389050954}
   - component: {fileID: 389050953}
   - component: {fileID: 389050952}
+  - component: {fileID: 389050955}
   m_Layer: 5
   m_Name: Play
   m_TagString: Untagged
@@ -378,8 +379,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12, y: -170}
-  m_SizeDelta: {x: 211.9377, y: 72.4944}
+  m_AnchoredPosition: {x: -30.4907, y: -152.5367}
+  m_SizeDelta: {x: 248.9189, y: 107.4211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389050952
 MonoBehaviour:
@@ -425,13 +426,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 389050955}
+        m_TargetAssemblyTypeName: Mainmenu, Assembly-CSharp
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -475,6 +476,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389050950}
   m_CullTransparentMesh: 1
+--- !u!114 &389050955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389050950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6abcad042561f7c4fabb674768d60251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &652213043
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +597,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 4.559326, y: 24.7807}
+  m_AnchoredPosition: {x: 4.5595703, y: 24.780762}
   m_SizeDelta: {x: -1095.3926, y: -379.0885}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &686343222
@@ -600,7 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.35686275}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.31764707}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -697,7 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 330
+  m_ReferencePixelsPerUnit: 300
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
@@ -716,7 +729,7 @@ Canvas:
   m_GameObject: {fileID: 770550617}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -724,7 +737,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -827,8 +840,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280887593
-  m_fontColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+    rgba: 4228318983
+  m_fontColor: {r: 0.028301895, g: 0.027340699, b: 0.027340699, a: 0.9882353}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1162,8 +1175,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1180,8 +1193,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.3
-  m_fontSizeBase: 56.3
+  m_fontSize: 80.12
+  m_fontSizeBase: 80.12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

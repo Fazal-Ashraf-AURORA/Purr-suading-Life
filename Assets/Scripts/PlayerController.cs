@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour {
     private Vector2 wallJumpingPower = new Vector2(10f, 20f);
 
     //delays for animations
-    private float attackDelay = 0.625f;
+    private float attackDelay = 0.417f;
     private float jumpDelay;
 
 
@@ -45,10 +46,12 @@ public class PlayerController : MonoBehaviour {
     //Animations States
 
     const string PLAYER_IDLE = "idle";
+    const string PLAYER_DEATH = "death";
     const string PLAYER_RUN = "run";
     const string PLAYER_JUMP = "jump";
     const string PLAYER_FALL = "fall";
     const string PLAYER_ATTACK = "attack";
+    const string PLAYER_DASH = "dash";
 
 
     [Header("Camera Tracking")]
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour {
 
 
     //flags
+    private bool death = false;
     public bool isFacingRight = true;
     private bool isJumping;
     private bool jumpCooldown;
@@ -92,7 +96,7 @@ public class PlayerController : MonoBehaviour {
 
     void Update() {
 
-        if (isAttacking == true) return;
+        
 
         if (IsGrounded()) {
             coyoteTimeCounter = coyoteTime;
@@ -126,16 +130,15 @@ public class PlayerController : MonoBehaviour {
 
 
     private void FixedUpdate() {
-        if (isAttacking) {
-            return;
-        }
+        
         if (isDashing) {
             return;
         }
 
-        if (!isWallJumping) {
+        if (!isWallJumping && !isAttacking) {
             rigidbody2d.velocity = new Vector2(horizontalMovementInput * playerMovementSpeed, rigidbody2d.velocity.y);
         }
+        
 
         if (horizontalMovementInput > 0f || horizontalMovementInput < 0f) {
 
@@ -231,7 +234,7 @@ public class PlayerController : MonoBehaviour {
 
         canDash = false;
         isDashing = true;
-
+        
 
         float originalGravity = rigidbody2d.gravityScale;
         rigidbody2d.gravityScale = 0;
@@ -307,7 +310,14 @@ public class PlayerController : MonoBehaviour {
         var velocity = rigidbody2d.velocity;
         var yVelocity = velocity.y;
 
-        Debug.Log(yVelocity);
+
+        //Debug.Log(velocity.x);
+
+
+
+        if(isDashing ) {
+            ChangeAnimationState(PLAYER_DASH);
+        }
 
         if (IsGrounded()  && !isJumping && !isAttacking) {
 
@@ -318,7 +328,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
 
-        if (isAttackPressed && velocity.x == 0 ) {
+        if (isAttackPressed /*&& velocity.x == 0 */) {
+            velocity.x = 0f; velocity.y = 0f;
             isAttackPressed = false;
 
             if (!isAttacking) {
@@ -336,6 +347,13 @@ public class PlayerController : MonoBehaviour {
         if(yVelocity < 0f && !IsGrounded()) {
 
             ChangeAnimationState(PLAYER_FALL);
+            isJumping = false;
+        }
+
+        if (death) {
+            ChangeAnimationState(PLAYER_DEATH);
+
+            Invoke("ResetLevel", 1f);
         }
     }
 
@@ -345,6 +363,20 @@ public class PlayerController : MonoBehaviour {
         isAttacking = false;
     }
     #endregion
+
+    void ResetLevel() {
+        Debug.Log("Reset level");
+        SceneManager.LoadScene("Gameplay");
+    }
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Spikes")) {
+            Die();
+        }
+    }
+
+    private void Die() {
+        death = true;
+    }
 }
 
 
