@@ -4,6 +4,6 @@ using UnityEngine.SceneManagement;
 public class Mainmenu : MonoBehaviour
 {
     public void PlayGame() {
-        SceneManager.LoadScene("Demo1");
+        SceneManager.LoadScene("Gameplay");
     }
 }

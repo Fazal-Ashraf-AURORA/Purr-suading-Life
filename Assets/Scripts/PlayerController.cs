@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviour {
             ChangeAnimationState(PLAYER_DASH);
         }
 
-        if (IsGrounded()  && !isJumping && !isAttacking) {
+        if (IsGrounded()  && !isJumping && !isAttacking && !isDashing) {
 
             if(velocity.x != 0f) {
                 ChangeAnimationState(PLAYER_RUN);

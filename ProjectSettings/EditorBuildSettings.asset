@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/WIP/Mainmenu.unity
     guid: e155a951cbdf0f841937ff2efe746f74
   - enabled: 1
-    path: Assets/Scenes/WIP/Demo1.unity
-    guid: 9220679efb1864b40a720b696a6bc60e
+    path: Assets/Scenes/WIP/Gameplay.unity
+    guid: 0c814c85022736d41aead801a849ec14
   m_configObjects: {}

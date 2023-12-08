@@ -1,23 +1,33 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Spikes : MonoBehaviour
-{
-    [SerializeField] Animator animator;
+public class Spikes : MonoBehaviour {
+    [SerializeField] private BoxCollider2D spikesCollider;
 
     private void Start() {
-        animator = GetComponent<Animator>();
-    }
+        if (spikesCollider == null) {
+            spikesCollider = GetComponent<BoxCollider2D>();
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Spikes")) {
-            Die();
+            if (spikesCollider == null) {
+                Debug.LogError("BoxCollider2D not found on Spikes object.");
+            }
         }
     }
 
-    private void Die() {
-        animator.SetTrigger("death");
+    public void ActivateSpikesCollider() {
+        if (spikesCollider != null) {
+            //Debug.Log("Collider ON");
+            spikesCollider.enabled = true;
+        } else {
+            Debug.LogError("BoxCollider2D is not assigned.");
+        }
+    }
+
+    public void DeactivateSpikesCollider() {
+        if (spikesCollider != null) {
+            //Debug.Log("Collider OFF");
+            spikesCollider.enabled = false;
+        } else {
+            Debug.LogError("BoxCollider2D is not assigned.");
+        }
     }
 }
